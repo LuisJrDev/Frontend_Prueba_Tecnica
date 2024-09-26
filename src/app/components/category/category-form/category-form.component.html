@@ -1,0 +1,20 @@
+<div class="container mt-5">
+  <h2>{{ categoryId ? 'Editar Categoria' : 'Crear Nuevo Categoria' }}</h2>
+  <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="name" class="form-label">Contenido</label>
+      <textarea id="name" class="form-control" formControlName="name"></textarea>
+      <div *ngIf="f['name'].invalid && (f['name'].dirty || f['name'].touched)" class="text-danger">
+        <div *ngIf="f['name'].errors?.['required']">El contenido es obligatorio.</div>
+        <div *ngIf="f['name'].errors?.['maxLength']">El contenido no puede exceder los 50 caracteres.</div>
+      </div>
+      <div *ngIf="f['name'].value?.length > 50" class="text-danger">
+        El contenido excede los 50 caracteres.
+      </div>
+    </div>
+    <div class="d-flex gap-2">
+      <button type="submit" class="btn btn-primary">{{ categoryId ? 'Actualizar' : 'Crear' }}</button>
+      <a routerLink="/categories" class="btn btn-secondary">Cancelar</a>
+    </div>
+  </form>
+</div>

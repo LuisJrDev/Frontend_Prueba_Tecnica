@@ -1,0 +1,57 @@
+/* Asegura que el wrapper ocupe toda la altura */
+html, body, #wrapper {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Estilo para ocultar el sidebar en pantallas pequeñas */
+#wrapper.toggled #sidebar-wrapper {
+  display: none;
+}
+
+/* Mostrar el sidebar en pantallas grandes */
+#sidebar-wrapper {
+  width: 250px;
+  height: 100%;
+  transition: all 0.3s ease;
+  position: fixed;
+}
+
+/* Ajustar contenido cuando el sidebar está oculto */
+#wrapper.toggled #page-content-wrapper {
+  padding-left: 0;
+  margin-left: 0;
+}
+
+#page-content-wrapper {
+  width: 100%;
+  padding-left: 250px;
+  transition: all 0.3s ease;
+}
+
+/* Responsividad: Ocultar sidebar en pantallas menores de 768px */
+@media (max-width: 768px) {
+  #sidebar-wrapper {
+    display: none;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    display: block;
+    position: fixed;
+    z-index: 1000;
+    background-color: white;
+    width: 250px;
+    height: 100%;
+    left: 0;
+  }
+
+  #wrapper.toggled #page-content-wrapper {
+    padding-left: 250px;
+  }
+
+  #page-content-wrapper {
+    padding-left: 0;
+  }
+}

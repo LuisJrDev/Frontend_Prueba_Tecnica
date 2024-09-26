@@ -1,0 +1,55 @@
+<div class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center">
+    <h2>Lista de Categorías</h2>
+    <a [routerLink]="['/categories/create']" class="btn btn-outline-primary">
+      <i class="fas fa-plus"></i> Crear Nueva Categoría
+    </a>
+  </div>
+
+  <div class=" mt-2" *ngIf="categories.length > 0; else noCategoiesTemplate">
+    <table class="table table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let category of paginatedCategories">
+          <td>{{ category.categoryId }}</td>
+          <td>{{ category.name }}</td>
+          <td>
+            <div class="d-flex justify-content-center gap-1">
+              <button class="btn btn-sm btn-outline-secondary me-2" (click)="editarCategory(category)">
+                <i class="fas fa-edit"></i> Editar
+              </button>
+              <button class="btn btn-sm btn-outline-danger" (click)="eliminarCategory(category.categoryId)">
+                <i class="fas fa-trash-alt"></i> Eliminar
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="d-flex justify-content-center mt-3" *ngIf="totalPages > 1">
+    <nav aria-label="Paginación">
+      <ul class="pagination">
+        <li class="page-item" [class.disabled]="currentPage === 1">
+          <a class="page-link" (click)="changePage(currentPage - 1)">Anterior</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link">{{ currentPage }} de {{ totalPages }}</a>
+        </li>
+        <li class="page-item" [class.disabled]="currentPage === totalPages">
+          <a class="page-link" (click)="changePage(currentPage + 1)">Siguiente</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <ng-template #noCategoiesTemplate>
+    <p class="text-center">No hay Categorias disponibles.</p>
+  </ng-template>
+</div>

@@ -1,0 +1,52 @@
+<div class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center">
+    <h2>Posts</h2>
+    <button [routerLink]="['/posts/create']" class="btn btn-outline-primary">
+      <i class="fas fa-plus"></i>
+      Crear Nuevo Post</button>
+  </div>
+
+  <div class="row mt-3" *ngIf="posts.length > 0; else noPostsTemplate">
+    <div class="col-md-12" *ngFor="let post of posts">
+      <div class="card mb-3">
+        <div class="card-body">
+          <div style="cursor: pointer;" (click)="navigateToPost(post.postId)">
+            <div class="d-flex justify-content-between">
+              <h5 class="card-title">{{ post.title }}</h5>
+              <small class="text-muted">{{ post.createdAt | date }}</small>
+            </div>
+            <p class="card-text">{{ post.content }}</p>
+          </div>
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-sm btn-outline-secondary me-2" (click)="editarPost(post)">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-danger" (click)="eliminarPost(post.postId)">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-center mt-3" *ngIf="totalPages > 1">
+    <nav aria-label="Paginación">
+      <ul class="pagination">
+        <li class="page-item" [class.disabled]="currentPage === 1">
+          <a class="page-link" (click)="onPageChange(currentPage - 1)">Anterior</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link">{{ currentPage }} de {{ totalPages }}</a>
+        </li>
+        <li class="page-item" [class.disabled]="currentPage === totalPages">
+          <a class="page-link" (click)="onPageChange(currentPage + 1)">Siguiente</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <ng-template #noPostsTemplate>
+    <p class="text-center">No hay posts disponibles.</p>
+  </ng-template>
+</div>

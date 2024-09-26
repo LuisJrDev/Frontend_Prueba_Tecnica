@@ -1,0 +1,22 @@
+.custom-modal-dialog {
+  max-width: 550px;
+}
+
+.custom-ng-select {
+  border: 1px solid #007bff; /* Borde azul */
+  border-radius: 4px; /* Bordes redondeados */
+  background-color: white; /* Fondo blanco */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+.custom-ng-select .ng-select-container {
+  padding: 0.5rem; /* Espaciado interno */
+}
+
+.custom-ng-select .ng-select .ng-select-label {
+  color: #007bff; /* Color de la etiqueta */
+}
+
+.custom-ng-select .ng-select .ng-select-single .ng-select-container {
+  min-height: 38px; /* Altura mínima */
+}

@@ -1,0 +1,97 @@
+<div class="container mt-5" *ngIf="post">
+  <div class="d-flex justify-content-start">
+    <a class="btn btn-outline-primary" [routerLink]="['/posts']">
+      <i class="fas fa-circle-left"></i> Volver
+    </a>
+  </div>
+
+  <div class="d-flex justify-content-between">
+    <h2 class="mt-4">{{ post.title }}</h2>
+    <div>
+      <p class="mt-4"><strong>Creado:</strong> {{ post.createdAt | date }}</p>
+    </div>
+  </div>
+
+<div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="categoryModalLabel">Seleccionar Categorías</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <label for="categorySelect" class="form-label">Elige las categorías:</label>
+        <select id="categorySelect" class="form-select" [(ngModel)]="selectedCategories" multiple>
+          <option *ngFor="let category of allCategories" [value]="category.categoryId.toString()" [selected]="selectedCategories.includes(category.categoryId.toString())">
+            {{ category.name }}
+          </option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeCategoryModal()">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="addCategoriesToPost()">Agregar Categorías</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="mb-4">
+    <span class="badge bg-primary me-1" *ngFor="let categoria of post.categorias">{{ categoria.name }}</span>
+    <button class="badge bg-success me-1" (click)="openCategoryModal()" >
+      <i class="fas fa-plus"></i> Agregar Categorías
+    </button>
+  </div>
+  <p>{{ post.content }}</p>
+  <div class="d-flex justify-content-between align-items-center">
+    <h3 class="mt-4">Comentarios</h3>
+    <span *ngIf="post && post.comentarios && post.comentarios.length > 0" class="badge bg-secondary">
+      {{ post.comentarios.length }}
+    </span>
+  </div>
+
+  <div *ngIf="post.comentarios.length > 0; else noComments">
+    <div *ngFor="let comment of post?.comentarios" class="border p-2 mb-2 rounded">
+      <ng-container *ngIf="!comment.isEditing; else editCommentTemplate">
+        <div class="d-flex justify-content-between align-items-center">
+            <p class="mb-1">{{ comment.content }} </p>
+            <span class="text-muted">{{ comment.createdAt | date: 'short' }}</span>
+        </div>
+        <div class="d-flex justify-content-end mt-2">
+          <button class="btn btn-sm btn-outline-secondary me-2" *ngIf="comment.commentId" (click)="onEditComment(comment)">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="btn btn-sm btn-outline-danger" *ngIf="comment.commentId" (click)="onDeleteComment(comment.commentId)">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </div>
+      </ng-container>
+      <ng-template #editCommentTemplate>
+        <form (ngSubmit)="onUpdateComment(comment)">
+          <div class="form-group">
+            <textarea class="form-control" [(ngModel)]="comment.content" name="content" required></textarea>
+          </div>
+          <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-success btn-sm mt-2 me-1">Actualizar</button>
+            <button type="button" class="btn btn-secondary btn-sm mt-2" (click)="onCancelEdit(comment)">Cancelar</button>
+          </div>
+        </form>
+      </ng-template>
+    </div>
+  </div>
+
+  <ng-template #noComments>
+    <p>No hay comentarios para este post.</p>
+  </ng-template>
+
+  <h4 class="mt-4">Añadir comentario</h4>
+  <form (ngSubmit)="onSubmitComment()">
+    <div class="form-group">
+      <textarea class="form-control" [(ngModel)]="newComment.content" name="content" placeholder="Escribe un comentario..." maxlength="300" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Agregar comentario</button>
+  </form>
+
+  <div class="d-flex justify-content-end">
+    <p><strong>Actualizado:</strong> {{ post.updatedAt | date }}</p>
+  </div>
+</div>

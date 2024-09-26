@@ -1,0 +1,28 @@
+<div class="container mt-5">
+  <h2>{{ postId ? 'Editar Post' : 'Crear Nuevo Post' }}</h2>
+  <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="title" class="form-label">Título</label>
+      <input id="title" type="text" class="form-control" formControlName="title">
+      <div *ngIf="f['title'].invalid && (f['title'].dirty || f['title'].touched)" class="text-danger">
+        <div *ngIf="f['title'].errors?.['required']">El título es obligatorio.</div>
+        <div *ngIf="f['title'].errors?.['maxLength']">El título no puede exceder los 100 caracteres.</div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="content" class="form-label">Contenido</label>
+      <textarea id="content" class="form-control" formControlName="content"></textarea>
+      <div *ngIf="f['content'].invalid && (f['content'].dirty || f['content'].touched)" class="text-danger">
+        <div *ngIf="f['content'].errors?.['required']">El contenido es obligatorio.</div>
+        <div *ngIf="f['content'].errors?.['maxLength']">El contenido no puede exceder los 200 caracteres.</div>
+      </div>
+      <div *ngIf="f['content'].value?.length > 200" class="text-danger">
+        El contenido excede los 200 caracteres.
+      </div>
+    </div>
+    <div class="d-flex gap-2">
+      <button type="submit" class="btn btn-primary">{{ postId ? 'Actualizar' : 'Crear' }}</button>
+      <a routerLink="/posts" class="btn btn-secondary">Cancelar</a>
+    </div>
+  </form>
+</div>
