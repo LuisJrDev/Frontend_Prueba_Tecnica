@@ -4,7 +4,7 @@ Este proyecto es una aplicación frontend desarrollada en Angular que permite la
 
 
 ## Prueba Tecnica en Producción
-  [Ver Proyecto](https://66f5cd8f3f3aa445bdb70994--luxury-parfait-be2fe6.netlify.app/)
+  [Ver Proyecto](https://postcomments.netlify.app/)
 
 ## Tabla de Contenido
 1. [Tecnologías Utilizadas](#tecnologías-utilizadas)
