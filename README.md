@@ -2,6 +2,10 @@
 
 Este proyecto es una aplicación frontend desarrollada en Angular que permite la gestión de publicaciones, categorías y comentarios. La aplicación utiliza un diseño responsivo con Bootstrap y funcionalidades adicionales como modales y alertas con SweetAlert2. Además, incluye la integración de iconos de FontAwesome.
 
+
+## Prueba Tecnica en Producción
+  [Ver Proyecto](https://66f5cd8f3f3aa445bdb70994--luxury-parfait-be2fe6.netlify.app/)
+
 ## Tabla de Contenido
 1. [Tecnologías Utilizadas](#tecnologías-utilizadas)
 2. [Funcionalidades](#funcionalidades)
